@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Adicionar Tarefas</h1>
+    <form id="meuForm">
+        <input type="text" id="tarefaInput" placeholder="Adicione uma nova Tarefa">
+        <input type="text" id="descricaoInput" placeholder="Adicione uma descrição">
+    </form>
+        <button onclick="addtarefa()">Criar</button>
+        <div id="tarefaInfo"></div>
+        
+        <h2>Suas Tarefas</h2>
+        <ul id="exibir"></ul>
+
+    <script src="script.js"></script>
+</body>
+</html>
