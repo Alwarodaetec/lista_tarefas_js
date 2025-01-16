@@ -1,7 +1,9 @@
 //id tarefainput  addtarefa  tarefainfo
 
 // tarefaInput, descricaoInput
-let exibir = [];
+let exibir = JSON.parse(localStorage.getItem('lista_tarefas')) || [];
+
+atualizarExibicao(exibir);
 
 function addtarefa(){
     tarefai = document.getElementById('tarefaInput').value;
@@ -11,10 +13,14 @@ function addtarefa(){
         descricao: descricaoi,
         isConcluida: false
     };
+    
+    if (tarefai === "" || descricaoi === ""){
+        alert("Adicione uma nova tarefa")
+        return;
+    }
     addtarefaCard(tarefa);
     exibirTarefas(tarefa);
-    limparInputs();
-}
+    limparInputs();}
 
 async function addtarefaCard(tarefa){
     const tarefaInfo = document.getElementById('tarefaInfo');
@@ -23,18 +29,37 @@ async function addtarefaCard(tarefa){
 }
 
 function exibirTarefas(tarefa){
-    exibir.push(tarefa);
+    exibir.push(tarefa)
     localStorage.setItem('lista_tarefas', JSON.stringify(exibir));
-    atualizarExibicao();
-    console.log(tarefa);
+    atualizarExibicao(exibir);  //exibir é o array onde guardamos todas as tarefas
 }
 
-function atualizarExibicao(){
+function atualizarExibicao(exibir){
     const exibirUl = document.getElementById('exibir');
     exibirUl.innerHTML = "";
+    
     exibir.forEach(item =>{
         const li = document.createElement('li')
-        li.textContent = `${item.nome}, ${item.descricao}, ${item.isConcluida}`;
+        
+        li.textContent = `${item.nome}, ${item.descricao}`;
+        
+        let button = document.createElement('button');
+        
+        if (item.isConcluida){
+            button.textContent = 'Marcar como Não Concluída';
+            button.classList.add('noConcluded')
+        } else {
+            button.textContent = 'Marcar como Concluída';
+            button.classList.add('concluded')
+        }
+        
+        button.addEventListener('click', function(){
+            item.isConcluida = !item.isConcluida;
+            localStorage.setItem('lista_tarefas', JSON.stringify(exibir));
+            atualizarExibicao(exibir);
+        });
+
+        li.appendChild(button);
         exibirUl.appendChild(li);
     })
 }

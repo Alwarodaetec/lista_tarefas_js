@@ -1,0 +1,9 @@
+.noConcluded {
+    background-color:rgb(198, 50, 50);
+    color:aliceblue
+}
+
+.concluded{
+    background-color:rgb(29, 182, 29);
+    color:aliceblue
+}
